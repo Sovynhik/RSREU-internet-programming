@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Смешарики — Главная</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1>Мультфильм «Смешарики»</h1>
+</header>
+<nav>
+    <a href="index.html">Главная</a>
+    <a href="characters.html">Персонажи</a>
+    <a href="world.html">Мир Смешариков</a>
+    <a href="facts.html">Интересные факты</a>
+</nav>
+<main>
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="javascript:showCustomAlert('Привет, друг! 👋', 'Приветствие!', '👋')" class="js-button" title="Приветствие">Поздороваться👋</a>
+        <a href="javascript:showRandomFact()" class="js-button" title="Случайный факт">Случайный факт❓</a>
+
+        <button onclick="setSunTheme()" class="js-button" title="Дневная тема (по умолчанию)">День☀️</button>
+        <button onclick="setMoonTheme()" class="js-button" title="Ночная тема">Ночь🌙</button>
+    </div>
+
+    <h2>Добро пожаловать!</h2>
+    <p>
+        «Смешарики» — популярный российский анимационный сериал, созданный для детей и взрослых.
+        Он сочетает юмор, философию и образовательные элементы. Премьера состоялась в 2004 году,
+        и с тех пор мультфильм завоевал любовь зрителей в России и за её пределами.
+    </p>
+    <p>
+        Каждый персонаж обладает уникальным характером и отражает разные типы личности,
+        что делает мультфильм интересным для широкой аудитории. Сериал переведён на десятки языков
+        и транслируется в более чем 60 странах мира.
+    </p>
+
+    <h3>История создания</h3>
+    <p>
+        Идея проекта принадлежит Анатолию Прохорову, Илье Попову и Салавату Шайхинурову.
+        Название «Смешарики» образовано от слов «смешные шарики» — намёк на круглую форму персонажей.
+        Первые серии создавались с использованием 3D-графики, что было новаторством для российской анимации.
+    </p>
+
+    <h3>Награды и достижения</h3>
+    <ul>
+        <li>Государственная премия РФ в области культуры (2009)</li>
+        <li>Гран-при Международного фестиваля детского анимационного кино «Золотая рыбка»</li>
+        <li>Премия «Мультимир» в номинации «Лучший российский анимационный сериал»</li>
+    </ul>
+
+    <h3>Адаптации</h3>
+    <p>
+        Помимо основного сериала, существуют образовательный проект «Смешарики. Пин-код»,
+        полнометражные фильмы («Смешарики. Начало», «Смешарики. Легенда о золотом драконе»)
+        и многочисленные книги, игры и сувенирная продукция.
+    </p>
+
+    <img src="../images/logo.jpg" alt="Логотип Смешариков">
+</main>
+
+<!-- Кастомное модальное окно -->
+<div id="customModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">×</span>
+        <div id="modalEmoji"></div>
+        <h3 id="modalTitle">Смешарики</h3>
+        <p id="modalMessage"></p>
+        <button onclick="closeModal()">ОК, спасибо!</button>
+    </div>
+</div>
+
+<script>
+    function showCustomAlert(message, title = "Смешарики", emoji = "✨") {
+        document.getElementById('modalEmoji').textContent = emoji;
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalMessage').innerHTML = message;
+        document.getElementById('customModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('customModal').style.display = 'none';
+    }
+
+    function showRandomFact() {
+        const facts = [
+            "«Смешарики» вышли в эфир 17 ноября 2004 года.",
+            "Все персонажи живут на Ромашковой поляне.",
+            "Сериал получил Государственную премию РФ в области культуры в 2009 году.",
+            "Существует образовательный проект «Смешарики. Пин-код».",
+            "Было снято два полнометражных фильма: «Начало» и «Легенда о золотом драконе».",
+            "Сериал транслируется более чем в 60 странах мира."
+        ];
+        const randomFact = facts[Math.floor(Math.random() * facts.length)];
+        showCustomAlert(randomFact, "Случайный факт ✨", "📖");
+    }
+
+    function setSunTheme() {
+        document.body.style.backgroundColor = '';
+        document.body.style.color = '';
+        document.body.style.transition = "all 0.6s ease";
+    }
+
+    function setMoonTheme() {
+        document.body.style.backgroundColor = "#2C3E50";
+        document.body.style.color = "#ECF0F1";
+        document.body.style.transition = "all 0.6s ease";
+    }
+
+    // Код, который выполняется сразу при загрузке
+    document.querySelector('h1').style.color = '#FF4500';
+    document.querySelector('h2').innerHTML = 'Добро пожаловать в интерактивный мир Смешариков!';
+    console.log('✅ Сайт с красивым модальным окном загружен!');
+</script>
+
+</body>
+</html>
