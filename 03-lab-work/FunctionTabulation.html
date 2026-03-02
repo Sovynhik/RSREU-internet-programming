@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Табулирование функции f(x,y) - Вариант 16</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="tabulation.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Табулирование функции f(x, y) - Вариант 16</h1>
+    <div class="function-formula">
+        <p>f(x, y) = (x/2) · ∏(1 + y·xⁿ/n!) + (x+y)/(x²+1) · ∏(y + xⁿ⁺¹/(2n-5))</p>
+    </div>
+
+    <div class="params">
+        <div class="group">
+            <h3>Параметры функции</h3>
+            <div class="param-group">
+                <label>nm1 (2..6):</label>
+                <input type="number" id="nm1" value="3" min="2" max="6" step="1">
+            </div>
+            <div class="param-group">
+                <label>nm2 (2..6):</label>
+                <input type="number" id="nm2" value="4" min="2" max="6" step="1">
+            </div>
+        </div>
+
+        <div class="group">
+            <h3>Диапазон x</h3>
+            <div class="param-group">
+                <label>x от:</label>
+                <input type="number" id="xStart" value="0.0" step="any">
+            </div>
+            <div class="param-group">
+                <label>x до:</label>
+                <input type="number" id="xEnd" value="2.0" step="any">
+            </div>
+            <div class="param-group">
+                <label>шаг x:</label>
+                <input type="number" id="xStep" value="0.5" step="any" min="0.01">
+            </div>
+        </div>
+
+        <div class="group">
+            <h3>Диапазон y</h3>
+            <div class="param-group">
+                <label>y от:</label>
+                <input type="number" id="yStart" value="0.0" step="any">
+            </div>
+            <div class="param-group">
+                <label>y до:</label>
+                <input type="number" id="yEnd" value="2.0" step="any">
+            </div>
+            <div class="param-group">
+                <label>шаг y:</label>
+                <input type="number" id="yStep" value="0.5" step="any" min="0.01">
+            </div>
+        </div>
+
+        <button id="tabulateBtn">Табулировать</button>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    document.getElementById('tabulateBtn').addEventListener('click', function() {
+        const nm1 = parseInt(document.getElementById('nm1').value, 10);
+        const nm2 = parseInt(document.getElementById('nm2').value, 10);
+        const xStart = parseFloat(document.getElementById('xStart').value);
+        const xEnd = parseFloat(document.getElementById('xEnd').value);
+        const xStep = parseFloat(document.getElementById('xStep').value);
+        const yStart = parseFloat(document.getElementById('yStart').value);
+        const yEnd = parseFloat(document.getElementById('yEnd').value);
+        const yStep = parseFloat(document.getElementById('yStep').value);
+
+        // Валидация
+        if (isNaN(nm1) || isNaN(nm2) || isNaN(xStart) || isNaN(xEnd) ||
+            isNaN(xStep) || isNaN(yStart) || isNaN(yEnd) || isNaN(yStep)) {
+            alert('Пожалуйста, заполните все поля корректными числами.');
+            return;
+        }
+
+        if (nm1 < 2 || nm1 > 6 || nm2 < 2 || nm2 > 6) {
+            alert('nm1 и nm2 должны быть целыми числами в диапазоне [2, 6].');
+            return;
+        }
+
+        if (xStep <= 0 || yStep <= 0) {
+            alert('Шаг должен быть положительным.');
+            return;
+        }
+
+        if (xStart > xEnd || yStart > yEnd) {
+            alert('Начальное значение не может быть больше конечного.');
+            return;
+        }
+
+        const result = tabulate(nm1, nm2, xStart, xEnd, xStep, yStart, yEnd, yStep);
+        renderTable(result, document.getElementById('result'));
+    });
+
+    // Автозапуск при загрузке страницы
+    window.addEventListener('load', function() {
+        document.getElementById('tabulateBtn').click();
+    });
+</script>
+</body>
+</html>

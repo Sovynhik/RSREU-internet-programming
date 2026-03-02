@@ -1,0 +1,164 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 18px;
+    margin: 20px;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.function-formula {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+}
+
+.params {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.param-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.group {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 15px;
+    background-color: #f8f9fa;
+}
+
+.group h3 {
+    margin-top: 0;
+    font-size: 1.1em;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: 600;
+    color: #495057;
+    white-space: nowrap;
+    width: 110px;
+    margin-right: 8px;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 120px;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+button {
+    padding: 12px 30px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 30px;
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+}
+
+td {
+    border: 1px solid #dee2e6;
+    padding: 6px;
+    text-align: center;
+}
+
+tr:first-child th {
+    background-color: #6c757d;
+}
+
+tr th:first-child {
+    background-color: #3f5970;
+}
+
+.max-cell {
+    background-color: #d4edda;
+    font-weight: bold;
+}
+
+.min-cell {
+    background-color: #f8d7da;
+    font-weight: bold;
+}
+
+.error {
+    color: #dc3545;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8d7da;
+    border-radius: 4px;
+}
+
+.info {
+    color: #6c757d;
+    font-style: italic;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
