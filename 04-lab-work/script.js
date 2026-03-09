@@ -1,21 +1,52 @@
+/**
+ * Хранит оригинальные данные таблицы (неизменяемый эталон).
+ * @type {number[][]}
+ */
 let originalData = [];
+
+/**
+ * Количество строк в оригинальной таблице.
+ * @type {number}
+ */
 let originalRows = 0;
+
+/**
+ * Количество столбцов в оригинальной таблице.
+ * @type {number}
+ */
 let originalCols = 0;
 
-// Элементы управления
+/** @type {HTMLInputElement} */
 const rowsInput = document.getElementById('rowsInput');
+
+/** @type {HTMLInputElement} */
 const colsInput = document.getElementById('colsInput');
+
+/** @type {HTMLInputElement} */
 const createBtn = document.getElementById('createBtn');
+
+/** @type {HTMLInputElement} */
 const resetBtn = document.getElementById('resetBtn');
+
+/** @type {HTMLElement} */
 const tableContainer = document.getElementById('tableContainer');
 
-// Элементы для действий
+/** @type {HTMLInputElement} */
 const action1Btn = document.getElementById('action1Btn');
+
+/** @type {HTMLInputElement} */
 const action2Btn = document.getElementById('action2Btn');
+
+/** @type {HTMLInputElement} */
 const action3Btn = document.getElementById('action3Btn');
+
+/** @type {HTMLInputElement} */
 const rowsToExclude = document.getElementById('rowsToExclude');
 
-// Валидация размеров
+/**
+ * Проверяет и корректирует введённые пользователем размеры таблицы.
+ * @returns {{rows: number, cols: number}} Объект с валидными значениями строк и столбцов (от 1 до 50)
+ */
 function getValidatedDimensions() {
     let rows = parseInt(rowsInput.value);
     let cols = parseInt(colsInput.value);
@@ -28,7 +59,12 @@ function getValidatedDimensions() {
     return { rows, cols };
 }
 
-// Генерация случайных чисел (1..100)
+/**
+ * Генерирует двумерный массив случайных чисел от 1 до 100.
+ * @param {number} rows - Количество строк
+ * @param {number} cols - Количество столбцов
+ * @returns {number[][]} Матрица случайных чисел
+ */
 function generateRandomData(rows, cols) {
     const data = [];
     for (let i = 0; i < rows; i++) {
@@ -41,7 +77,11 @@ function generateRandomData(rows, cols) {
     return data;
 }
 
-// Определение центральных индексов (для чётного/нечётного количества)
+/**
+ * Определяет индексы центральных элементов для массива заданной длины.
+ * @param {number} length - Длина массива
+ * @returns {number[]} Массив индексов центральных элементов
+ */
 function getCentralIndices(length) {
     if (length % 2 === 1) {
         return [Math.floor(length / 2)];
@@ -50,9 +90,13 @@ function getCentralIndices(length) {
     }
 }
 
-// Отрисовка таблицы с поддержкой опций:
-// - overrideRed: значение для заполнения красных ячеек
-// - excludeRows: массив индексов строк, которые не должны иметь цвет
+/**
+ * Отрисовывает таблицу в контейнере на основе переданных данных.
+ * @param {number[][]} data - Двумерный массив данных для отображения
+ * @param {Object} options - Опции отрисовки
+ * @param {number} [options.overrideRed] - Значение для заполнения красных ячеек
+ * @param {number[]} [options.excludeRows] - Массив индексов строк, которые не должны иметь цвет
+ */
 function renderTable(data, options = {}) {
     // Очистка контейнера
     while (tableContainer.firstChild) {
@@ -97,7 +141,9 @@ function renderTable(data, options = {}) {
     tableContainer.appendChild(table);
 }
 
-// Создание новой таблицы
+/**
+ * Создаёт новую таблицу на основе введённых пользователем размеров.
+ */
 function createNewTable() {
     const { rows, cols } = getValidatedDimensions();
     originalRows = rows;
@@ -117,7 +163,9 @@ resetBtn.addEventListener('click', () => {
     }
 });
 
-// Действие 1: заполнить красные ячейки суммой или средним
+/**
+ * Действие 1: Заполняет красные ячейки суммой или средним арифметическим всех чисел таблицы.
+ */
 action1Btn.addEventListener('click', () => {
     if (originalData.length === 0) {
         alert('Сначала создайте таблицу!');
@@ -154,7 +202,9 @@ action1Btn.addEventListener('click', () => {
     renderTable(originalData, { overrideRed: value, excludeRows: [] });
 });
 
-// Действие 2: убрать цвет для указанных строк
+/**
+ * Действие 2: Убирает цветовую заливку для указанных пользователем строк.
+ */
 action2Btn.addEventListener('click', () => {
     if (originalData.length === 0) {
         alert('Сначала создайте таблицу!');
@@ -182,7 +232,9 @@ action2Btn.addEventListener('click', () => {
     renderTable(originalData, { excludeRows: excludeIndices });
 });
 
-// Действие 3: повернуть таблицу на 90 градусов вправо
+/**
+ * Действие 3: Поворачивает таблицу на 90 градусов вправо.
+ */
 action3Btn.addEventListener('click', () => {
     if (originalData.length === 0) {
         alert('Сначала создайте таблицу!');
