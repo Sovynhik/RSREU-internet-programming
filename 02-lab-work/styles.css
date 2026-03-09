@@ -37,7 +37,6 @@ main {
     padding: 20px;
 }
 
-/* Выравнивание текста по ширине */
 main p,
 main li {
     text-align: justify;
@@ -49,7 +48,6 @@ img {
     margin-top: 10px;
 }
 
-/* Галерея персонажей */
 .character-gallery {
     display: flex;
     flex-wrap: wrap;
@@ -58,13 +56,11 @@ img {
     margin-top: 20px;
 }
 
-/* Элемент галереи — обёртка для картинки */
 .gallery-item {
     position: relative;
     cursor: help;
 }
 
-/* Сама картинка */
 .gallery-item img {
     width: 200px;
     height: 200px;
@@ -79,7 +75,6 @@ img {
     transform: scale(1.05);
 }
 
-/* Тултип (появляется в нижней части картинки) */
 .gallery-item:hover::after {
     content: attr(data-title);
     position: absolute;
@@ -101,7 +96,6 @@ img {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
-/* На узких экранах */
 @media (max-width: 600px) {
     .gallery-item:hover::after {
         white-space: normal;
@@ -113,7 +107,6 @@ img {
     }
 }
 
-/* На узких экранах */
 @media (max-width: 600px) {
     .gallery-item:hover::after {
         white-space: normal;
@@ -139,7 +132,6 @@ main img:not(.character-gallery img) {
     margin: 10px auto 0;
 }
 
-/* Стили для кнопок */
 .js-button {
     display: inline-block;
     background-color: #5c6bc0;
@@ -168,7 +160,6 @@ main img:not(.character-gallery img) {
     transform: scale(0.98);
 }
 
-/* ==================== КАСТОМНОЕ МОДАЛЬНОЕ ОКНО ==================== */
 .modal {
     display: none;
     position: fixed;
