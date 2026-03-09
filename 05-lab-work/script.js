@@ -1,30 +1,63 @@
-// Хранение текущих матриц
+/**
+ * @fileoverview Лабораторная работа №5, Вариант 4
+ * Программа для генерации и преобразования матриц: перемещение чётных элементов в начало строк, нечётных - в конец.
+ */
+
+/**
+ * Хранит исходную матрицу M1.
+ * @type {number[][]}
+ */
 let m1 = [];
+
+/**
+ * Хранит исходную матрицу M2.
+ * @type {number[][]}
+ */
 let m2 = [];
 
-// Элементы управления
+/** @type {HTMLInputElement} Поле ввода количества строк матрицы M1 */
 const rowsM1 = document.getElementById('rowsM1');
+
+/** @type {HTMLInputElement} Поле ввода количества столбцов матрицы M1 */
 const colsM1 = document.getElementById('colsM1');
+
+/** @type {HTMLInputElement} Поле ввода количества строк матрицы M2 */
 const rowsM2 = document.getElementById('rowsM2');
+
+/** @type {HTMLInputElement} Поле ввода количества столбцов матрицы M2 */
 const colsM2 = document.getElementById('colsM2');
+
+/** @type {HTMLInputElement} Поле ввода минимального значения диапазона */
 const minVal = document.getElementById('minVal');
+
+/** @type {HTMLInputElement} Поле ввода максимального значения диапазона */
 const maxVal = document.getElementById('maxVal');
+
+/** @type {HTMLButtonElement} Кнопка генерации матриц */
 const generateBtn = document.getElementById('generateBtn');
+
+/** @type {HTMLButtonElement} Кнопка преобразования матриц */
 const transformBtn = document.getElementById('transformBtn');
 
-// Контейнеры для вывода
+/** @type {HTMLElement} Контейнер для отображения исходной матрицы M1 */
 const m1OriginalDiv = document.getElementById('m1Original');
+
+/** @type {HTMLElement} Контейнер для отображения исходной матрицы M2 */
 const m2OriginalDiv = document.getElementById('m2Original');
+
+/** @type {HTMLElement} Контейнер для отображения преобразованной матрицы M1 */
 const m1TransformedDiv = document.getElementById('m1Transformed');
+
+/** @type {HTMLElement} Контейнер для отображения преобразованной матрицы M2 */
 const m2TransformedDiv = document.getElementById('m2Transformed');
 
 /**
- * Генерирует матрицу заданного размера со случайными целыми числами в диапазоне [min, max]
- * @param {number} rows - количество строк
- * @param {number} cols - количество столбцов
- * @param {number} min - минимальное значение
- * @param {number} max - максимальное значение
- * @returns {number[][]} матрица
+ * Генерирует матрицу заданного размера со случайными целыми числами в диапазоне [min, max].
+ * @param {number} rows - Количество строк
+ * @param {number} cols - Количество столбцов
+ * @param {number} min - Минимальное значение (включительно)
+ * @param {number} max - Максимальное значение (включительно)
+ * @returns {number[][]} Матрица случайных чисел
  */
 function generateMatrix(rows, cols, min, max) {
     return Array.from({ length: rows }, () =>
@@ -35,12 +68,12 @@ function generateMatrix(rows, cols, min, max) {
 }
 
 /**
- * Отображает матрицу в указанном DOM-элементе
- * @param {number[][]} matrix - матрица
- * @param {HTMLElement} container - элемент для вставки таблицы
+ * Отображает матрицу в указанном DOM-элементе в виде HTML-таблицы.
+ * @param {number[][]} matrix - Матрица для отображения
+ * @param {HTMLElement} container - DOM-элемент, в который будет вставлена таблица
  */
 function renderMatrix(matrix, container) {
-    // Очистка
+    // Очистка контейнера
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
@@ -62,7 +95,7 @@ function renderMatrix(matrix, container) {
 /**
  * Преобразует вектор (строку матрицы) – перемещает чётные элементы в начало, нечётные в конец.
  * Использует мутабельный метод sort с пользовательским компаратором.
- * @param {number[]} arr - массив чисел (изменяется на месте)
+ * @param {number[]} arr - Массив чисел (изменяется на месте)
  */
 function reorderEvenOdd(arr) {
     arr.sort((a, b) => {
@@ -75,16 +108,19 @@ function reorderEvenOdd(arr) {
 }
 
 /**
- * Применяет функцию reorderEvenOdd к каждой строке матрицы (мутабельно)
- * @param {number[][]} matrix - матрица
+ * Применяет функцию reorderEvenOdd к каждой строке матрицы (мутабельно).
+ * @param {number[][]} matrix - Матрица для преобразования (изменяется на месте)
  */
 function transformMatrix(matrix) {
     matrix.forEach(row => reorderEvenOdd(row));
 }
 
-// Обработчик генерации
+/**
+ * Обработчик клика по кнопке "Сгенерировать матрицы".
+ * Считывает введённые параметры, генерирует матрицы M1 и M2, отображает их.
+ */
 generateBtn.addEventListener('click', () => {
-    // Получаем значения
+    // Получаем значения из полей ввода
     const r1 = parseInt(rowsM1.value, 10);
     const c1 = parseInt(colsM1.value, 10);
     const r2 = parseInt(rowsM2.value, 10);
@@ -99,19 +135,23 @@ generateBtn.addEventListener('click', () => {
     if (isNaN(c2) || c2 < 1 || c2 > 10) { alert('Столбцы M2 должны быть от 1 до 10'); return; }
     if (isNaN(min) || isNaN(max) || min > max) { alert('Некорректный диапазон'); return; }
 
-    // Генерация
+    // Генерация матриц
     m1 = generateMatrix(r1, c1, min, max);
     m2 = generateMatrix(r2, c2, min, max);
 
-    // Отображение исходных
+    // Отображение исходных матриц
     renderMatrix(m1, m1OriginalDiv);
     renderMatrix(m2, m2OriginalDiv);
+
     // Очистка преобразованных (пока не применяли)
     renderMatrix([], m1TransformedDiv);
     renderMatrix([], m2TransformedDiv);
 });
 
-// Обработчик преобразования
+/**
+ * Обработчик клика по кнопке "Преобразовать строки".
+ * Создаёт копии матриц M1 и M2, преобразует их и отображает результат.
+ */
 transformBtn.addEventListener('click', () => {
     if (m1.length === 0 || m2.length === 0) {
         alert('Сначала сгенерируйте матрицы');
@@ -131,7 +171,7 @@ transformBtn.addEventListener('click', () => {
     renderMatrix(m2Copy, m2TransformedDiv);
 });
 
-// Инициализация: пустые матрицы
+// Инициализация: отображаем пустые матрицы
 renderMatrix([], m1OriginalDiv);
 renderMatrix([], m2OriginalDiv);
 renderMatrix([], m1TransformedDiv);
