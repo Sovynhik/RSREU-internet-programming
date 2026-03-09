@@ -1,7 +1,6 @@
-/* style.css — свежая цветовая палитра и шрифт */
 body {
     margin: 0;
-    background: #f2f5f9; /* мягкий серо-голубой фон */
+    background: #f2f5f9;
     font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
     font-size: 16px;
     color: #2d3e50;
@@ -25,7 +24,7 @@ h1 {
 }
 
 .function-formula {
-    background: #e6edf6; /* очень светлый синий */
+    background: #e6edf6;
     border-radius: 16px;
     padding: 1.2rem;
     margin-bottom: 2rem;
@@ -36,7 +35,6 @@ h1 {
     border: 1px solid #cbd6e4;
 }
 
-/* Три колонки */
 .params {
     display: flex;
     flex-wrap: wrap;
@@ -98,7 +96,6 @@ button {
     margin: 0 auto;
     padding: 0.8rem 2.5rem;
     background: #2c7da0;
-    border: none;
     border-radius: 40px;
     font-family: inherit;
     font-size: 1.1rem;
@@ -155,13 +152,11 @@ tr:last-child td {
     border-bottom: none;
 }
 
-/* Первый столбец (x) и шапка */
 tr th:first-child {
     background: #e0e9f2;
     border-right: 1px solid #cbd6e4;
 }
 
-/* Максимум/минимум */
 .max-cell {
     background: #d4efe0;
     font-weight: 600;
@@ -192,7 +187,6 @@ tr th:first-child {
     margin: 1.5rem 0 1rem 0;
 }
 
-/* Убираем лишнее */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     opacity: 0.3;

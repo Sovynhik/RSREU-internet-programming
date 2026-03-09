@@ -75,7 +75,6 @@
         const yEnd = parseFloat(document.getElementById('yEnd').value);
         const yStep = parseFloat(document.getElementById('yStep').value);
 
-        // Валидация
         if (isNaN(nm1) || isNaN(nm2) || isNaN(xStart) || isNaN(xEnd) ||
             isNaN(xStep) || isNaN(yStart) || isNaN(yEnd) || isNaN(yStep)) {
             alert('Пожалуйста, заполните все поля корректными числами.');
@@ -101,7 +100,6 @@
         renderTable(result, document.getElementById('result'));
     });
 
-    // Автозапуск при загрузке страницы
     window.addEventListener('load', function() {
         document.getElementById('tabulateBtn').click();
     });
