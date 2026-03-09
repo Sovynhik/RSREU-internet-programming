@@ -1,19 +1,52 @@
+/**
+ * Хранит оригинальные данные таблицы (неизменяемый эталон).
+ * @type {number[][]}
+ */
 let originalData = [];
+
+/**
+ * Количество строк в оригинальной таблице.
+ * @type {number}
+ */
 let originalRows = 0;
+
+/**
+ * Количество столбцов в оригинальной таблице.
+ * @type {number}
+ */
 let originalCols = 0;
 
+/** @type {HTMLInputElement} */
 const rowsInput = document.getElementById('rowsInput');
-const colsInput = document.getElementById('colsInput');
-const createBtn = document.getElementById('createBtn');
-const resetBtn = document.getElementById('resetBtn');
-const tableContainer = document.getElementById('tableContainer');
-const action1Btn = document.getElementById('action1Btn');
-const action2Btn = document.getElementById('action2Btn');
-const action3Btn = document.getElementById('action3Btn');
-const thresholdInput = document.getElementById('threshold');
-const sumavgRadios = document.getElementsByName('sumavg');
 
-// Валидация размеров
+/** @type {HTMLInputElement} */
+const colsInput = document.getElementById('colsInput');
+
+/** @type {HTMLInputElement} */
+const createBtn = document.getElementById('createBtn');
+
+/** @type {HTMLInputElement} */
+const resetBtn = document.getElementById('resetBtn');
+
+/** @type {HTMLElement} */
+const tableContainer = document.getElementById('tableContainer');
+
+/** @type {HTMLInputElement} */
+const action1Btn = document.getElementById('action1Btn');
+
+/** @type {HTMLInputElement} */
+const action2Btn = document.getElementById('action2Btn');
+
+/** @type {HTMLInputElement} */
+const action3Btn = document.getElementById('action3Btn');
+
+/** @type {HTMLInputElement} */
+const rowsToExclude = document.getElementById('rowsToExclude');
+
+/**
+ * Проверяет и корректирует введённые пользователем размеры таблицы.
+ * @returns {{rows: number, cols: number}} Объект с валидными значениями строк и столбцов (от 1 до 50)
+ */
 function getValidatedDimensions() {
     let rows = parseInt(rowsInput.value);
     let cols = parseInt(colsInput.value);
@@ -26,7 +59,12 @@ function getValidatedDimensions() {
     return { rows, cols };
 }
 
-// Генерация случайных чисел
+/**
+ * Генерирует двумерный массив случайных чисел от 1 до 100.
+ * @param {number} rows - Количество строк
+ * @param {number} cols - Количество столбцов
+ * @returns {number[][]} Матрица случайных чисел
+ */
 function generateRandomData(rows, cols) {
     const data = [];
     for (let i = 0; i < rows; i++) {
@@ -39,7 +77,11 @@ function generateRandomData(rows, cols) {
     return data;
 }
 
-// Определение центральных индексов
+/**
+ * Определяет индексы центральных элементов для массива заданной длины.
+ * @param {number} length - Длина массива
+ * @returns {number[]} Массив индексов центральных элементов
+ */
 function getCentralIndices(length) {
     if (length % 2 === 1) {
         return [Math.floor(length / 2)];
@@ -48,7 +90,13 @@ function getCentralIndices(length) {
     }
 }
 
-// Отрисовка таблицы (только общие методы DOM)
+/**
+ * Отрисовывает таблицу в контейнере на основе переданных данных.
+ * @param {number[][]} data - Двумерный массив данных для отображения
+ * @param {Object} options - Опции отрисовки
+ * @param {number} [options.overrideRed] - Значение для заполнения красных ячеек
+ * @param {number[]} [options.excludeRows] - Массив индексов строк, которые не должны иметь цвет
+ */
 function renderTable(data, options = {}) {
     // Очистка контейнера
     while (tableContainer.firstChild) {
@@ -59,6 +107,7 @@ function renderTable(data, options = {}) {
     const cols = data[0].length;
     const centerCols = getCentralIndices(cols);
     const centerRows = getCentralIndices(rows);
+    const excludeRows = options.excludeRows || [];
 
     const table = document.createElement('table');
 
@@ -68,18 +117,20 @@ function renderTable(data, options = {}) {
             const td = document.createElement('td');
             let cellValue = data[i][j];
 
-            // Если нужно переопределить значение в синих ячейках
-            if (options.overrideBlue !== undefined && centerRows.includes(i)) {
-                cellValue = options.overrideBlue;
+            // Заполнение красных ячеек, если задано и строка не исключена
+            if (options.overrideRed !== undefined && centerCols.includes(j) && !excludeRows.includes(i)) {
+                cellValue = options.overrideRed;
             }
 
             td.textContent = cellValue;
 
-            // Расстановка цветов
-            if (centerCols.includes(j)) {
-                td.style.backgroundColor = '#ffcccc'; // красный
-            } else if (centerRows.includes(i)) {
-                td.style.backgroundColor = '#ccccff'; // синий
+            // Расстановка цветов через классы (исключённые строки остаются без цвета)
+            if (!excludeRows.includes(i)) {
+                if (centerCols.includes(j)) {
+                    td.classList.add('red-cell');
+                } else if (centerRows.includes(i)) {
+                    td.classList.add('blue-cell');
+                }
             }
 
             tr.appendChild(td);
@@ -90,7 +141,9 @@ function renderTable(data, options = {}) {
     tableContainer.appendChild(table);
 }
 
-// Создание новой таблицы
+/**
+ * Создаёт новую таблицу на основе введённых пользователем размеров.
+ */
 function createNewTable() {
     const { rows, cols } = getValidatedDimensions();
     originalRows = rows;
@@ -110,49 +163,26 @@ resetBtn.addEventListener('click', () => {
     }
 });
 
-// Действие 1: удалить строки, где сумма меньше порога
+/**
+ * Действие 1: Заполняет красные ячейки суммой или средним арифметическим всех чисел таблицы.
+ */
 action1Btn.addEventListener('click', () => {
     if (originalData.length === 0) {
         alert('Сначала создайте таблицу!');
         return;
     }
 
-    const threshold = parseFloat(thresholdInput.value);
-    if (isNaN(threshold)) {
-        alert('Введите корректное пороговое значение');
-        return;
-    }
-
-    // Вычисляем суммы строк
-    const rowSums = originalData.map(row => row.reduce((acc, val) => acc + val, 0));
-
-    // Формируем новый массив данных, оставляя только строки с суммой >= threshold
-    const newData = originalData.filter((_, index) => rowSums[index] >= threshold);
-
-    if (newData.length === 0) {
-        alert('После удаления таблица пуста. Операция отменена.');
-        return;
-    }
-
-    renderTable(newData);
-});
-
-// Действие 2: заполнить синие ячейки суммой или средним
-action2Btn.addEventListener('click', () => {
-    if (originalData.length === 0) {
-        alert('Сначала создайте таблицу!');
-        return;
-    }
-
+    // Определяем выбранное радио
     let selected = 'sum';
-    for (let radio of sumavgRadios) {
+    const radios = document.getElementsByName('sumavgRed');
+    for (let radio of radios) {
         if (radio.checked) {
             selected = radio.value;
             break;
         }
     }
 
-    // Общая сумма
+    // Вычисляем общую сумму
     let totalSum = 0;
     for (let row of originalData) {
         for (let val of row) {
@@ -169,20 +199,63 @@ action2Btn.addEventListener('click', () => {
         value = Math.round(value * 100) / 100; // округление до двух знаков
     }
 
-    renderTable(originalData, { overrideBlue: value });
+    renderTable(originalData, { overrideRed: value, excludeRows: [] });
 });
 
-// Действие 3: отразить строки зеркально по вертикали
+/**
+ * Действие 2: Убирает цветовую заливку для указанных пользователем строк.
+ */
+action2Btn.addEventListener('click', () => {
+    if (originalData.length === 0) {
+        alert('Сначала создайте таблицу!');
+        return;
+    }
+
+    const input = rowsToExclude.value;
+    if (!input.trim()) {
+        alert('Введите номера строк');
+        return;
+    }
+
+    // Парсим строки: разделяем по запятой, обрезаем пробелы, преобразуем в числа
+    const parts = input.split(',').map(s => s.trim());
+    const excludeIndices = [];
+    for (let part of parts) {
+        const num = parseInt(part, 10);
+        if (isNaN(num) || num < 1 || num > originalRows) {
+            alert(`Некорректный номер строки: ${part}. Допустимы значения от 1 до ${originalRows}`);
+            return;
+        }
+        excludeIndices.push(num - 1); // переводим в 0-индексацию
+    }
+
+    renderTable(originalData, { excludeRows: excludeIndices });
+});
+
+/**
+ * Действие 3: Поворачивает таблицу на 90 градусов вправо.
+ */
 action3Btn.addEventListener('click', () => {
     if (originalData.length === 0) {
         alert('Сначала создайте таблицу!');
         return;
     }
 
-    // Создаём копию и переворачиваем массив строк
-    const mirrored = [...originalData].reverse();
-    renderTable(mirrored);
+    const rows = originalRows;
+    const cols = originalCols;
+    // Создаём новую матрицу размером cols x rows
+    const rotated = [];
+    for (let i = 0; i < cols; i++) {
+        rotated[i] = [];
+        for (let j = 0; j < rows; j++) {
+            // Исходный элемент (rows-1-j, i) становится (i, j) в повёрнутой
+            rotated[i][j] = originalData[rows - 1 - j][i];
+        }
+    }
+
+    // Отрисовываем повёрнутую таблицу (цвета пересчитаются по новым размерам)
+    renderTable(rotated, { excludeRows: [] });
 });
 
-// Инициализация
+// Инициализация при загрузке
 createNewTable();
