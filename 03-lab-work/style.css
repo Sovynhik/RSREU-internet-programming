@@ -1,164 +1,199 @@
+/* style.css — свежая цветовая палитра и шрифт */
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 18px;
-    margin: 20px;
-    background-color: #f5f5f5;
+    margin: 0;
+    background: #f2f5f9; /* мягкий серо-голубой фон */
+    font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    color: #2d3e50;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.function-formula {
-    background-color: #e9ecef;
-    padding: 15px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: 500;
+    max-width: 1300px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,20,30,0.1);
+    padding: 2rem;
 }
 
 h1 {
-    font-size: 1.5em;
-    margin-top: 0;
-    color: #333;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin: 0 0 1rem 0;
+    color: #1a3b5d;
     text-align: center;
 }
 
+.function-formula {
+    background: #e6edf6; /* очень светлый синий */
+    border-radius: 16px;
+    padding: 1.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #1a3b5d;
+    border: 1px solid #cbd6e4;
+}
+
+/* Три колонки */
 .params {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.group {
+    flex: 1 1 250px;
+    background: #ffffff;
+    border: 1px solid #d9e2ef;
+    border-radius: 18px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.group h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c7da0; /* бирюзово-синий акцент */
+    border-bottom: 2px solid #d9e2ef;
+    padding-bottom: 0.5rem;
 }
 
 .param-group {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-
-.group {
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 15px;
-    background-color: #f8f9fa;
-}
-
-.group h3 {
-    margin-top: 0;
-    font-size: 1.1em;
-    color: #007bff;
-    margin-bottom: 15px;
+    margin-bottom: 0.8rem;
 }
 
 label {
-    font-weight: 600;
-    color: #495057;
-    white-space: nowrap;
-    width: 110px;
-    margin-right: 8px;
+    width: 80px;
+    font-weight: 500;
+    color: #4a6a85;
+    font-size: 0.9rem;
 }
 
 input {
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 1em;
-    width: 120px;
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #bcccdb;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: white;
+    transition: 0.15s;
 }
 
-input[type=number] {
-    -moz-appearance: textfield;
-}
-
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+input:focus {
+    outline: none;
+    border-color: #2c7da0;
+    box-shadow: 0 0 0 3px rgba(44,125,160,0.2);
 }
 
 button {
-    padding: 12px 30px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.1em;
-    cursor: pointer;
+    flex: 0 0 100%;
     width: fit-content;
     margin: 0 auto;
+    padding: 0.8rem 2.5rem;
+    background: #2c7da0;
+    border: none;
+    border-radius: 40px;
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(44,125,160,0.3);
+    transition: 0.2s;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 button:hover {
-    background-color: #0056b3;
+    background: #1e5f7d;
+    box-shadow: 0 8px 18px rgba(30,95,125,0.4);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(30,95,125,0.3);
 }
 
 #result {
-    margin-top: 30px;
+    margin-top: 2rem;
     overflow-x: auto;
+    border-radius: 16px;
+    background: white;
+    border: 1px solid #d9e2ef;
 }
 
 table {
-    border-collapse: collapse;
     width: 100%;
-    font-size: 0.9em;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-collapse: collapse;
+    font-size: 0.9rem;
 }
 
 th {
-    background-color: #007bff;
-    color: white;
-    padding: 8px;
+    background: #eef3f9;
+    color: #1a3b5d;
+    font-weight: 600;
+    padding: 0.8rem 0.5rem;
+    border-bottom: 2px solid #cbd6e4;
     text-align: center;
-    position: sticky;
-    top: 0;
 }
 
 td {
-    border: 1px solid #dee2e6;
-    padding: 6px;
+    padding: 0.6rem 0.5rem;
+    border-bottom: 1px solid #dee7f0;
     text-align: center;
+    color: #1e2f40;
 }
 
-tr:first-child th {
-    background-color: #6c757d;
+tr:last-child td {
+    border-bottom: none;
 }
 
+/* Первый столбец (x) и шапка */
 tr th:first-child {
-    background-color: #3f5970;
+    background: #e0e9f2;
+    border-right: 1px solid #cbd6e4;
 }
 
+/* Максимум/минимум */
 .max-cell {
-    background-color: #d4edda;
-    font-weight: bold;
+    background: #d4efe0;
+    font-weight: 600;
+    color: #0f4d2b;
 }
 
 .min-cell {
-    background-color: #f8d7da;
-    font-weight: bold;
-}
-
-.error {
-    color: #dc3545;
-    font-weight: bold;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f8d7da;
-    border-radius: 4px;
+    background: #fad7da;
+    font-weight: 600;
+    color: #a12b2b;
 }
 
 .info {
-    color: #6c757d;
-    font-style: italic;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #e9ecef;
-    border-radius: 4px;
+    background: #e9f2fa;
+    border-left: 6px solid #2c7da0;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    color: #1a3b5d;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.error {
+    background: #fee9e7;
+    border-left: 6px solid #d14545;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    color: #7f1d1d;
+    margin: 1.5rem 0 1rem 0;
+}
+
+/* Убираем лишнее */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 0.3;
 }
