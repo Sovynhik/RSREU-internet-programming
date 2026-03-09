@@ -1,72 +1,194 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 18px;
-    margin: 20px;
-    background-color: #f5f5f5;
-}
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-.controls, .actions {
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #e9ecef;
-    border-radius: 5px;
-}
-.controls label, .actions label {
-    margin-right: 15px;
-}
-input[type="button"] {
-    font-size: 0.9em;
-    padding: 8px 15px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
-}
-input[type="button"]:hover {
-    background: #0056b3;
-}
-input[type="number"], input[type="text"] {
-    font-size: 0.9em;
-    padding: 5px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    width: 125px;
-}
-input[type=number] {
-    -moz-appearance: textfield;
-}
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
     margin: 0;
+    background: #f2f5f9;
+    font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    color: #2d3e50;
 }
+
+.container {
+    max-width: 1300px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,20,30,0.1);
+    padding: 2rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin: 0 0 1rem 0;
+    color: #1a3b5d;
+    text-align: center;
+}
+
+/* Блоки управления */
+.controls, .actions {
+    background: #eef3f9;
+    border-radius: 18px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid #d9e2ef;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+/* Заголовки внутри блоков */
+.controls h3, .actions h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c7da0;
+    border-bottom: 2px solid #d9e2ef;
+    padding-bottom: 0.5rem;
+}
+
+/* Расстояние между действиями */
+.actions h3:not(:first-of-type) {
+    margin-top: 2rem;
+}
+
+/* Поля ввода */
+label {
+    font-weight: 500;
+    color: #4a6a85;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+}
+
+input[type="number"],
+input[type="text"] {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #bcccdb;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: white;
+    transition: 0.15s;
+    margin-right: 1rem;
+    width: auto;
+    min-width: 100px;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+    outline: none;
+    border-color: #2c7da0;
+    box-shadow: 0 0 0 3px rgba(44,125,160,0.2);
+}
+
+/* Убираем стрелки у числового поля */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 0.3;
+}
+
+/* Кнопки */
+input[type="button"] {
+    padding: 0.6rem 1.5rem;
+    background: #2c7da0;
+    border-radius: 40px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(44,125,160,0.3);
+    transition: 0.2s;
+    border: 1px solid rgba(255,255,255,0.2);
+    margin: 0.25rem 0.5rem 0.25rem 0;
+    display: inline-block;
+}
+
+input[type="button"]:hover {
+    background: #1e5f7d;
+    box-shadow: 0 8px 18px rgba(30,95,125,0.4);
+    transform: translateY(-1px);
+}
+
+input[type="button"]:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(30,95,125,0.3);
+}
+
+/* Группа создания таблицы */
+.controls label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1.5rem;
+}
+.controls input[type="number"] {
+    width: 80px;
+    margin-left: 0.5rem;
+}
+
+/* Радио-кнопки */
+.actions label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1.5rem;
+}
+.actions input[type="radio"] {
+    margin-right: 0.3rem;
+}
+
+/* Поле ввода списка строк */
+.actions input[type="text"] {
+    width: 150px;
+}
+
+/* Контейнер таблицы */
 .table-container {
+    margin-top: 2rem;
+    margin-bottom: 2rem; /* добавлен отступ после таблицы */
     overflow-x: auto;
-    margin: 20px 0;
+    border-radius: 16px;
+    background: white;
+    border: 1px solid #d9e2ef;
+    padding: 1px;
+    display: flex;
+    justify-content: center;
 }
+
+/* Таблица – ширина по содержимому */
 table {
     border-collapse: collapse;
-    margin: 0 auto;
-    background: white;
+    font-size: 0.9rem;
+    margin: 0;
 }
+
+/* Ячейки */
 td {
-    border: 1px solid #dee2e6;
-    padding: 10px;
+    padding: 0.6rem 0.5rem;
+    border: 1px solid #dee7f0;
     text-align: center;
-    min-width: 50px;
+    color: #1e2f40;
 }
+
+/* Цветные ячейки (классы) */
 .red-cell {
-    background-color: #ffcccc;
+    background-color: #f8d7da; /* мягкий красный */
 }
+
 .blue-cell {
-    background-color: #ccccff;
+    background-color: #d1ecf1; /* мягкий голубой */
+}
+
+/* Сообщения (опционально) */
+.info {
+    background: #e9f2fa;
+    border-left: 6px solid #2c7da0;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    color: #1a3b5d;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.error {
+    background: #fee9e7;
+    border-left: 6px solid #d14545;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    color: #7f1d1d;
+    margin: 1.5rem 0 1rem 0;
 }

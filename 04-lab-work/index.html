@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Динамическая таблица. Вариант 1</title>
+    <title>Динамическая таблица. Вариант 14</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -19,17 +19,17 @@
     <div id="tableContainer" class="table-container"></div>
 
     <div class="actions">
-        <h3>Действие 1: Удалить строки с суммой меньше</h3>
-        <label>Порог: <input type="number" id="threshold" value="200"></label>
-        <input type="button" id="action1Btn" value="Удалить строки">
+        <h3>Действие 1: Заполнить красные ячейки</h3>
+        <label><input type="radio" name="sumavgRed" value="sum" checked> Сумма всех чисел</label>
+        <label><input type="radio" name="sumavgRed" value="avg"> Среднее арифметическое</label>
+        <input type="button" id="action1Btn" value="Применить">
 
-        <h3>Действие 2: Заполнить синие ячейки</h3>
-        <label><input type="radio" name="sumavg" value="sum" checked> Сумма всех чисел</label>
-        <label><input type="radio" name="sumavg" value="avg"> Среднее арифметическое</label>
-        <input type="button" id="action2Btn" value="Применить">
+        <h3>Действие 2: Убрать цвет ячеек для строк</h3>
+        <label>Номера строк (через запятую): <input type="text" id="rowsToExclude" placeholder="например: 1,3"></label>
+        <input type="button" id="action2Btn" value="Убрать цвет">
 
-        <h3>Действие 3: Отразить строки зеркально по вертикали</h3>
-        <input type="button" id="action3Btn" value="Отразить">
+        <h3>Действие 3: Повернуть таблицу на 90° вправо</h3>
+        <input type="button" id="action3Btn" value="Повернуть">
     </div>
 </div>
 <script src="script.js"></script>
