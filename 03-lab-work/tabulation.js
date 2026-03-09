@@ -1,7 +1,11 @@
 /**
- * Вычисление факториала числа n
- * @param {number} n - целое неотрицательное число
- * @returns {number} факториал n
+ * Вычисляет факториал целого неотрицательного числа
+ * @param {number} n - Целое неотрицательное число (0, 1, 2, ...)
+ * @returns {number} Факториал числа n. Для n < 0 возвращает NaN
+ * @example
+ * factorial(5) // 120
+ * factorial(0) // 1
+ * factorial(-1) // NaN
  */
 function factorial(n) {
     if (n < 0) return NaN;
@@ -15,8 +19,29 @@ function factorial(n) {
 }
 
 /**
- * Табулирование функции варианта 16
- * f(x,y) = (x/2) * ∏(1 + y*x^n/n!) + (x+y)/(x^2+1) * ∏(y + x^(n+1)/(2n-5))
+ * Выполняет табулирование функции двух переменных для варианта 16
+ *
+ * f(x,y) = (x/2) * ∏(1 + y*xⁿ/n!) + (x+y)/(x²+1) * ∏(y + xⁿ⁺¹/(2n-5))
+ *
+ * где первое произведение берётся по n от 1 до nm1, второе — по n от 1 до nm2
+ *
+ * @param {number} nm1 - Верхний предел первого произведения (целое, 2..6)
+ * @param {number} nm2 - Верхний предел второго произведения (целое, 2..6)
+ * @param {number} xStart - Начальное значение x
+ * @param {number} xEnd - Конечное значение x
+ * @param {number} xStep - Шаг по x (положительное число)
+ * @param {number} yStart - Начальное значение y
+ * @param {number} yEnd - Конечное значение y
+ * @param {number} yStep - Шаг по y (положительное число)
+ *
+ * @returns {Object} Объект с результатами табулирования
+ * @returns {number[]} .xValues - Массив значений x
+ * @returns {number[]} .yValues - Массив значений y
+ * @returns {number[][]} .matrix - Двумерный массив значений функции
+ * @returns {number|null} .maxVal - Максимальное значение функции (или null)
+ * @returns {number|null} .minVal - Минимальное значение функции (или null)
+ * @returns {Object|null} .maxCoord - Координаты максимума {x, y, row, col}
+ * @returns {Object|null} .minCoord - Координаты минимума {x, y, row, col}
  */
 function tabulate(nm1, nm2, xStart, xEnd, xStep, yStart, yEnd, yStep) {
     // Формирование массивов значений x и y
@@ -114,7 +139,23 @@ function tabulate(nm1, nm2, xStart, xEnd, xStep, yStart, yEnd, yStep) {
 }
 
 /**
- * Отрисовка таблицы результатов
+ * Отрисовывает HTML-таблицу с результатами табулирования
+ *
+ * @param {Object} data - Объект с данными, возвращаемый функцией tabulate()
+ * @param {number[]} data.xValues - Массив значений x
+ * @param {number[]} data.yValues - Массив значений y
+ * @param {number[][]} data.matrix - Двумерный массив значений функции
+ * @param {number|null} data.maxVal - Максимальное значение функции
+ * @param {number|null} data.minVal - Минимальное значение функции
+ * @param {Object|null} data.maxCoord - Координаты максимума
+ * @param {Object|null} data.minCoord - Координаты минимума
+ * @param {HTMLElement} container - DOM-элемент, в который будет вставлена таблица
+ *
+ * @returns {void}
+ *
+ * @example
+ * const result = tabulate(3, 4, 0, 2, 0.5, 0, 2, 0.5);
+ * renderTable(result, document.getElementById('result'));
  */
 function renderTable(data, container) {
     const { xValues, yValues, matrix, maxVal, minVal, maxCoord, minCoord } = data;
