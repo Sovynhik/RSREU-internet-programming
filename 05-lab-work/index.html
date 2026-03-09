@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЛР5 Вариант 4</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>Лабораторная работа №5, Вариант 4</h1>
+  <div class="controls">
+    <h3>Параметры матриц</h3>
+    <div class="param-group">
+      <label>Строки M1:</label>
+      <input type="number" id="rowsM1" min="1" max="10" value="3">
+    </div>
+    <div class="param-group">
+      <label>Столбцы M1:</label>
+      <input type="number" id="colsM1" min="1" max="10" value="4">
+    </div>
+    <div class="param-group">
+      <label>Строки M2:</label>
+      <input type="number" id="rowsM2" min="1" max="10" value="2">
+    </div>
+    <div class="param-group">
+      <label>Столбцы M2:</label>
+      <input type="number" id="colsM2" min="1" max="10" value="5">
+    </div>
+    <div class="param-group">
+      <label>Диапазон от:</label>
+      <input type="number" id="minVal" value="-10">
+    </div>
+    <div class="param-group">
+      <label>до:</label>
+      <input type="number" id="maxVal" value="10">
+    </div>
+    <button id="generateBtn">Сгенерировать матрицы</button>
+    <button id="transformBtn">Преобразовать строки</button>
+  </div>
+
+  <div class="matrices">
+    <div class="matrix-block">
+      <h3>Исходная M1</h3>
+      <div id="m1Original" class="matrix-table"></div>
+    </div>
+    <div class="matrix-block">
+      <h3>Исходная M2</h3>
+      <div id="m2Original" class="matrix-table"></div>
+    </div>
+    <div class="matrix-block">
+      <h3>Преобразованная M1</h3>
+      <div id="m1Transformed" class="matrix-table"></div>
+    </div>
+    <div class="matrix-block">
+      <h3>Преобразованная M2</h3>
+      <div id="m2Transformed" class="matrix-table"></div>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
