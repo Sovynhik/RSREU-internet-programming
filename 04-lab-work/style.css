@@ -23,7 +23,6 @@ h1 {
     text-align: center;
 }
 
-/* Блоки управления */
 .controls, .actions {
     background: #eef3f9;
     border-radius: 18px;
@@ -33,7 +32,6 @@ h1 {
     box-shadow: 0 4px 12px rgba(0,0,0,0.02);
 }
 
-/* Заголовки внутри блоков */
 .controls h3, .actions h3 {
     margin: 0 0 1rem 0;
     font-size: 1.1rem;
@@ -43,12 +41,10 @@ h1 {
     padding-bottom: 0.5rem;
 }
 
-/* Расстояние между действиями */
 .actions h3:not(:first-of-type) {
     margin-top: 2rem;
 }
 
-/* Поля ввода */
 label {
     font-weight: 500;
     color: #4a6a85;
@@ -77,13 +73,11 @@ input[type="text"]:focus {
     box-shadow: 0 0 0 3px rgba(44,125,160,0.2);
 }
 
-/* Убираем стрелки у числового поля */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     opacity: 0.3;
 }
 
-/* Кнопки */
 input[type="button"] {
     padding: 0.6rem 1.5rem;
     background: #2c7da0;
@@ -111,36 +105,34 @@ input[type="button"]:active {
     box-shadow: 0 4px 10px rgba(30,95,125,0.3);
 }
 
-/* Группа создания таблицы */
 .controls label {
     display: inline-flex;
     align-items: center;
     margin-right: 1.5rem;
 }
+
 .controls input[type="number"] {
     width: 80px;
     margin-left: 0.5rem;
 }
 
-/* Радио-кнопки */
 .actions label {
     display: inline-flex;
     align-items: center;
     margin-right: 1.5rem;
 }
+
 .actions input[type="radio"] {
     margin-right: 0.3rem;
 }
 
-/* Поле ввода списка строк */
 .actions input[type="text"] {
     width: 150px;
 }
 
-/* Контейнер таблицы */
 .table-container {
     margin-top: 2rem;
-    margin-bottom: 2rem; /* добавлен отступ после таблицы */
+    margin-bottom: 2rem;
     overflow-x: auto;
     border-radius: 16px;
     background: white;
@@ -150,14 +142,12 @@ input[type="button"]:active {
     justify-content: center;
 }
 
-/* Таблица – ширина по содержимому */
 table {
     border-collapse: collapse;
     font-size: 0.9rem;
     margin: 0;
 }
 
-/* Ячейки */
 td {
     padding: 0.6rem 0.5rem;
     border: 1px solid #dee7f0;
@@ -165,16 +155,14 @@ td {
     color: #1e2f40;
 }
 
-/* Цветные ячейки (классы) */
 .red-cell {
-    background-color: #f8d7da; /* мягкий красный */
+    background-color: #f8d7da;
 }
 
 .blue-cell {
-    background-color: #d1ecf1; /* мягкий голубой */
+    background-color: #d1ecf1;
 }
 
-/* Сообщения (опционально) */
 .info {
     background: #e9f2fa;
     border-left: 6px solid #2c7da0;
