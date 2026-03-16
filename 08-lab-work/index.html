@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛР8 Вариант 4 – Квадратная матрица</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Лабораторная работа №8, Вариант 4</h1>
+    <h2>Класс «Квадратная матрица» (Matrix)</h2>
+
+    <div class="controls">
+        <div class="param-group">
+            <label>Размер матриц (n):</label>
+            <input type="number" id="matrixSize" min="1" max="10" value="3">
+        </div>
+        <button id="createBtn">Создать матрицы A и B</button>
+        <button id="randomBtn">Заполнить случайно</button>
+    </div>
+
+    <div class="matrices">
+        <div class="matrix-block">
+            <h3>Матрица A</h3>
+            <div id="matrixA" class="matrix-table"></div>
+            <div class="matrix-actions">
+                <button id="getABtn">Получить элемент (i,j)</button>
+                <button id="setABtn">Установить элемент</button>
+                <button id="maxABtn">Индекс максимума A</button>
+                <button id="minABtn">Индекс минимума A</button>
+            </div>
+        </div>
+        <div class="matrix-block">
+            <h3>Матрица B</h3>
+            <div id="matrixB" class="matrix-table"></div>
+            <div class="matrix-actions">
+                <button id="getBBtn">Получить элемент (i,j)</button>
+                <button id="setBBtn">Установить элемент</button>
+                <button id="maxBBtn">Индекс максимума B</button>
+                <button id="minBBtn">Индекс минимума B</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="operations">
+        <h3>Операции с матрицами</h3>
+        <button id="addBtn">A + B</button>
+        <button id="subBtn">A - B</button>
+        <button id="mulBtn">A * B</button>
+        <div id="resultMatrix" class="matrix-table"></div>
+    </div>
+
+    <div class="log-controls">
+        <h3>Логирование</h3>
+        <button id="printLogABtn">Вывести лог A в консоль</button>
+        <button id="printLogBBtn">Вывести лог B в консоль</button>
+        <button id="clearLogABtn">Очистить лог A</button>
+        <button id="clearLogBBtn">Очистить лог B</button>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
