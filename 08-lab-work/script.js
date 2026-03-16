@@ -3,9 +3,8 @@
  * Класс «Квадратная матрица» с наследованием через прототипы и логированием.
  */
 
-// ---------- Базовый класс BaseObject ----------
 /**
- * Конструктор BaseObject. Инициализирует лог вызовов.
+ * Конструктор базового класса с логированием вызовов.
  * @constructor
  */
 function BaseObject() {
@@ -39,14 +38,13 @@ BaseObject.prototype.printLog = function() {
     });
 };
 
-// ---------- Класс Matrix, наследующий от BaseObject ----------
 /**
  * Конструктор квадратной матрицы.
  * @constructor
+ * @extends BaseObject
  * @param {number} n - размер матрицы (n x n)
  */
 function Matrix(n) {
-    // Вызов конструктора родителя
     BaseObject.call(this);
 
     /** @type {number} */
@@ -59,7 +57,6 @@ function Matrix(n) {
     }
 }
 
-// Наследование прототипа BaseObject
 Matrix.prototype = Object.create(BaseObject.prototype);
 Matrix.prototype.constructor = Matrix;
 
@@ -68,6 +65,7 @@ Matrix.prototype.constructor = Matrix;
  * @param {number} i - индекс строки
  * @param {number} j - индекс столбца
  * @returns {number} значение элемента
+ * @throws {Error} при выходе индекса за границы
  */
 Matrix.prototype.get = function(i, j) {
     this.register('get', i, j);
@@ -82,6 +80,7 @@ Matrix.prototype.get = function(i, j) {
  * @param {number} i - индекс строки
  * @param {number} j - индекс столбца
  * @param {number} value - новое значение
+ * @throws {Error} при выходе индекса за границы
  */
 Matrix.prototype.set = function(i, j, value) {
     this.register('set', i, j, value);
@@ -95,6 +94,7 @@ Matrix.prototype.set = function(i, j, value) {
  * Сложение матриц.
  * @param {Matrix} other - другая матрица
  * @returns {Matrix} новая матрица-сумма
+ * @throws {Error} если размеры матриц не совпадают
  */
 Matrix.prototype.add = function(other) {
     this.register('add', other);
@@ -114,6 +114,7 @@ Matrix.prototype.add = function(other) {
  * Вычитание матриц.
  * @param {Matrix} other - другая матрица
  * @returns {Matrix} новая матрица-разность
+ * @throws {Error} если размеры матриц не совпадают
  */
 Matrix.prototype.subtract = function(other) {
     this.register('subtract', other);
@@ -133,6 +134,7 @@ Matrix.prototype.subtract = function(other) {
  * Умножение матриц.
  * @param {Matrix} other - другая матрица
  * @returns {Matrix} новая матрица-произведение
+ * @throws {Error} если размеры матриц не совпадают
  */
 Matrix.prototype.multiply = function(other) {
     this.register('multiply', other);
@@ -193,7 +195,7 @@ Matrix.prototype.minIndex = function() {
 };
 
 /**
- * Переопределение toString() для вывода матрицы.
+ * Строковое представление матрицы.
  * @returns {string} строковое представление матрицы
  */
 Matrix.prototype.toString = function() {
@@ -204,7 +206,6 @@ Matrix.prototype.toString = function() {
     return str;
 };
 
-// ---------- Интерфейс ----------
 /** @type {HTMLInputElement} */
 const sizeInput = document.getElementById('matrixSize');
 /** @type {HTMLButtonElement} */
@@ -219,22 +220,35 @@ const matrixBDiv = document.getElementById('matrixB');
 /** @type {HTMLElement} */
 const resultDiv = document.getElementById('resultMatrix');
 
-// Кнопки действий
+/** @type {HTMLButtonElement} */
 const getABtn = document.getElementById('getABtn');
+/** @type {HTMLButtonElement} */
 const setABtn = document.getElementById('setABtn');
+/** @type {HTMLButtonElement} */
 const maxABtn = document.getElementById('maxABtn');
+/** @type {HTMLButtonElement} */
 const minABtn = document.getElementById('minABtn');
+/** @type {HTMLButtonElement} */
 const getBBtn = document.getElementById('getBBtn');
+/** @type {HTMLButtonElement} */
 const setBBtn = document.getElementById('setBBtn');
+/** @type {HTMLButtonElement} */
 const maxBBtn = document.getElementById('maxBBtn');
+/** @type {HTMLButtonElement} */
 const minBBtn = document.getElementById('minBBtn');
+/** @type {HTMLButtonElement} */
 const addBtn = document.getElementById('addBtn');
+/** @type {HTMLButtonElement} */
 const subBtn = document.getElementById('subBtn');
+/** @type {HTMLButtonElement} */
 const mulBtn = document.getElementById('mulBtn');
-
+/** @type {HTMLButtonElement} */
 const printLogABtn = document.getElementById('printLogABtn');
+/** @type {HTMLButtonElement} */
 const printLogBBtn = document.getElementById('printLogBBtn');
+/** @type {HTMLButtonElement} */
 const clearLogABtn = document.getElementById('clearLogABtn');
+/** @type {HTMLButtonElement} */
 const clearLogBBtn = document.getElementById('clearLogBBtn');
 
 /** @type {Matrix} */
@@ -299,7 +313,6 @@ function randomFill() {
     renderAll();
 }
 
-// Инициализация при загрузке
 createBtn.addEventListener('click', () => {
     const n = parseInt(sizeInput.value, 10);
     if (isNaN(n) || n < 1 || n > 10) {
@@ -311,7 +324,11 @@ createBtn.addEventListener('click', () => {
 
 randomBtn.addEventListener('click', randomFill);
 
-// Вспомогательная функция для запроса индексов у пользователя
+/**
+ * Запрашивает у пользователя индексы для матрицы.
+ * @param {string} which - имя матрицы ('A' или 'B')
+ * @returns {{i: number, j: number}|null} объект с индексами или null при отмене
+ */
 function promptIndexes(which) {
     const i = prompt(`Введите индекс строки для матрицы ${which} (от 0 до ${matA.size-1}):`);
     const j = prompt(`Введите индекс столбца для матрицы ${which} (от 0 до ${matA.size-1}):`);
@@ -370,7 +387,6 @@ minABtn.addEventListener('click', () => {
     alert(`Минимальный элемент A: A[${idx.i}][${idx.j}] = ${matA.data[idx.i][idx.j]}`);
 });
 
-// Аналогично для B
 getBBtn.addEventListener('click', () => {
     if (!matB) { alert('Сначала создайте матрицы'); return; }
     const idx = promptIndexes('B');
@@ -416,7 +432,6 @@ minBBtn.addEventListener('click', () => {
     alert(`Минимальный элемент B: B[${idx.i}][${idx.j}] = ${matB.data[idx.i][idx.j]}`);
 });
 
-// Операции
 addBtn.addEventListener('click', () => {
     if (!matA || !matB) { alert('Сначала создайте матрицы'); return; }
     try {
@@ -447,7 +462,6 @@ mulBtn.addEventListener('click', () => {
     }
 });
 
-// Логи
 printLogABtn.addEventListener('click', () => {
     if (!matA) { alert('Сначала создайте матрицы'); return; }
     matA.printLog();
@@ -470,7 +484,6 @@ clearLogBBtn.addEventListener('click', () => {
     alert('Лог матрицы B очищен');
 });
 
-// При загрузке создаём матрицы по умолчанию
 window.addEventListener('load', () => {
     createMatrices(3);
     randomFill();
