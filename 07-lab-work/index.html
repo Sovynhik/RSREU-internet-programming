@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЛР7 Вариант 4 – Анализ функций</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>Лабораторная работа №7, Вариант 4</h1>
+  <h2>Исследование функций на отрезке</h2>
+
+  <div class="controls">
+    <div class="param-group">
+      <label>a (начало):</label>
+      <input type="number" id="inputA" value="0" step="0.1">
+    </div>
+    <div class="param-group">
+      <label>b (конец):</label>
+      <input type="number" id="inputB" value="5" step="0.1">
+    </div>
+    <div class="param-group">
+      <label>h (шаг):</label>
+      <input type="number" id="inputH" value="0.5" step="0.1" min="0.01">
+    </div>
+    <div class="param-group">
+      <label>Функция:</label>
+      <select id="selectFunc">
+        <option value="f1">f1(x) = x·√(sin³(x+10)) + (x³–cos x)/x</option>
+        <option value="f2">f2(x) = sin²x – |sin(x–4)|</option>
+        <option value="f3">f3(x) = e^(x–2) + x³ + 2x·ln(x+3)/7</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="options">
+    <fieldset>
+      <legend>Характеристики</legend>
+      <label><input type="checkbox" id="chMin" checked> Минимум</label>
+      <label><input type="checkbox" id="chMonotone" checked> Монотонно убывающая</label>
+      <label><input type="checkbox" id="chZeros" checked> Количество нулей</label>
+    </fieldset>
+    <fieldset>
+      <legend>Обёртки функций</legend>
+      <label><input type="checkbox" id="optMemoize"> Мемоизация</label>
+      <label><input type="checkbox" id="optDebug"> Отладка (консоль)</label>
+      <label><input type="checkbox" id="optCount"> Счётчик вызовов</label>
+    </fieldset>
+  </div>
+
+  <button id="calcBtn">Вычислить</button>
+
+  <div class="results">
+    <h3>Результаты</h3>
+    <div id="charResults"></div>
+    <div id="extraInfo"></div>
+  </div>
+
+  <div class="cache-info">
+    <h3>Информация о мемоизации и счётчике</h3>
+    <div id="cacheOutput"></div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
